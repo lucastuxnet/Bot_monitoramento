@@ -17,6 +17,9 @@ Criação de uma função para elimitar containers e imagens que esteja armazena
 
 Bibliotecas necessárias para utilizar os bots.
 
+- Pip
+sudo apt install python3-pip
+
 - Schedule
 pip install schedule
 
