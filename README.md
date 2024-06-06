@@ -17,13 +17,13 @@ Criação de uma função para elimitar containers e imagens que esteja armazena
 
 Bibliotecas necessárias para utilizar os bots.
 
-- Pip
+- Pip:
 sudo apt install python3-pip
 
-- Schedule
+- Schedule:
 pip install schedule
 
-- API-Telegram
+- API-Telegram:
 pip install python-telegram-bot --upgrade
 
 Para executar o projeto no terminal, digite o seguinte comando:
