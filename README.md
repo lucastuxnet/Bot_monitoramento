@@ -1,27 +1,32 @@
 # Gestão de Vulnerabilidades.
 
-O objetivo do projeto solveSeek & solveDestroy é gerenciamento de vulnerabilidades.
+O objetivo do projeto solveSeek & solveDestroy é para o gerenciamento de vulnerabilidades.
 
-O projeto foi desenvolvido como base de criação de dois bots para a gestão de vulnerabilidades na empresa Esolvere Tecnologia.
+O projeto foi desenvolvido com o intuito de monitoramento e remoção de própria autoria em servidores de terceiros,
+para nessidade de gestão de vulnerabilidades na empresa Esolvere Tecnologia.
 
 Durante o projeto, são abordados os seguintes tópicos:
 
 Criação de um ChatBot.
 Criação de uma função de monitoramento de entradas e saídas em um servidor.
-                                   "last -n 10"
-
 Criação de uma função monitoramento de históricos de comandos especificos útilizados pelo usuário no servidor com o intuito de navegação em imagens de containers arquivadas no servidor.
-                                   "cat /home/$user/.bash_history | grep 'docker exec'"
+Integração da API-Telegram chatbot com o usuário administrador.
+Criação de uma função de aviso temporal para o administrador.
+Criação de uma função para elimitar containers e imagens que esteja armazenados em um servidor através de um comando pelo chatbot.
 
-Integração do chatbot com o BotFather-Telegram.
 
-Criação de uma função de aviso temporal para o administrador para execução da função.
+Bibliotecas necessárias para utilizar os bots.
 
-Criação de uma função para elimitar containers e imagens que estejam dentro de um servidor através de um comando pelo chatbot.
+- Schedule
+pip install schedule
+
+- API-Telegram
+pip install python-telegram-bot --upgrade
 
 Para executar o projeto no terminal, digite o seguinte comando:
 
-Bot para monitoramento de navegação em imagens para containers.
+python solveseek.py
+python solvedestroy.py
 
 
 
