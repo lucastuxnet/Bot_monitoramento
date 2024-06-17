@@ -18,6 +18,7 @@ Bibliotecas necessárias para utilizar o Chatbot.
 - Logging
 - Subprocess
 - Ushlex
+- JobQueue
 - Json (Nativa)
 - OS (Nativa)
 
@@ -37,6 +38,11 @@ pip install logging
 
 - Subprocess
 pip install subprocess.run
+
+- Job Queue
+pip install "python-telegram-bot[job-queue]"
+
+
 
 Para executar o projeto no terminal, digite o seguinte comando:
 
