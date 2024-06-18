@@ -154,7 +154,7 @@ async def dont_clear_files(update: Update, context: CallbackContext) -> None:
 
 # Comando para iniciar monitoramento
 async def start_monitoring(update: Update, context: CallbackContext) -> None:
-    context.job_queue.run_repeating(monitor_users, interval=60, first=0)
+    context.job_queue.run_repeating(monitor_users, interval=86400, first=0)
     await context.bot.send_message(
         chat_id=CHAT_ID,
         text="Sistema de monitoramento iniciado. \n \n Comandos para uso administrativo: \n \n 1. Para verificar IP's adicionados na Blacklist digite /Blacklist \n \n 2. Para desbloquear algum IP digite /desbloquear IP \n \n 3. Para remover todos os arquivos do servidor /limpar senha \n \n 4. Para bloquear algum usuário /bloquear usuário"
