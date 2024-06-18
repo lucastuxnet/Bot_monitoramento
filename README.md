@@ -36,10 +36,10 @@ pip install ushlex
 - Logging:
 pip install logging
 
-- Subprocess
+- Subprocess:
 pip install subprocess.run
 
-- Job Queue
+- Job Queue:
 pip install "python-telegram-bot[job-queue]"
 
 
