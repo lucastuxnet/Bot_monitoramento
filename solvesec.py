@@ -122,7 +122,7 @@ async def show_blacklist(update: Update, context: CallbackContext) -> None:
 async def cleanup_files(context: CallbackContext) -> None:
     await context.bot.send_message(
         chat_id=CHAT_ID,
-        text="Deseja limpar os arquivos armazenados? /limpar ou /naolimpar"
+        text="Deseja remover o containers e limpar as imagens armazenados? /limpar ou /naolimpar"
     )
 
 # Limpar arquivos
@@ -134,22 +134,22 @@ async def clear_files(update: Update, context: CallbackContext) -> None:
         return
 
     if senha == PASSWORD:
-        subprocess.run("docker stop $(docker ps -a -q) & docker rm -f $(docker ps -a -q) && docker rmi -f $(docker images -a -q)", shell=True)
+        subprocess.run("podman stop $(podman ps -a -q) & podman rm -f $(podman ps -a -q) && podman rmi -f $(podman images -a -q) && echo 'Processo finalizado'", shell=True)
         await context.bot.send_message(
             chat_id=CHAT_ID,
-            text="Processo finalizado todos arquivos removidos do sistema."
+            text="Processo finalizado todos os containers e imagens foram removidos do sistema."
         )
     else:
         await context.bot.send_message(
             chat_id=CHAT_ID,
-            text="Senha incorreta. Nenhum arquivo foi removido."
+            text="Senha incorreta. Nenhum containers e imagens foram removidos do sistema."
         )
 
 # Não limpar arquivos
 async def dont_clear_files(update: Update, context: CallbackContext) -> None:
     await context.bot.send_message(
         chat_id=CHAT_ID,
-        text="Nenhum arquivo foi removido."
+        text="Nenhum containers e imagens foram removidos do sistema."
     )
 
 # Comando para iniciar monitoramento
