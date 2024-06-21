@@ -7,9 +7,9 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, CallbackContext
 
 # Configurações iniciais
-TOKEN = 'token-botfather-criado'
-CHAT_ID = 'seu-chat-id'
-PASSWORD = 'edite-uma-senha'
+TOKEN = 'token-do-chatbot-criado'
+CHAT_ID = 'id-do-chat-telegram-do-bot'
+PASSWORD = 'adicionar-uma-senha'
 
 # Arquivos
 LOGON_FILE = "logon.json"
@@ -163,12 +163,25 @@ async def start_monitoring(update: Update, context: CallbackContext) -> None:
 
 # Comando para parar monitoramento
 async def stop_monitoring(update: Update, context: CallbackContext) -> None:
-    context.job_queue.stop()
-    await context.bot.send_message(
-        chat_id=CHAT_ID,
-        text="Sistema de monitoramento desligado."
-    )
-    os._exit(0)  # Termina o processo
+    try:
+        senha = context.args[0]
+    except IndexError:
+        await update.message.reply_text("Por favor, forneça a senha para desligar o sistema de monitoramento. Ex: /off <senha>")
+        return
+
+    if senha == PASSWORD:
+
+        await context.bot.send_message(
+            chat_id=CHAT_ID,
+            text="Sistema de monitoramento desligado."
+        )
+        os._exit(0)  # Termina o processo
+
+    else:
+        await context.bot.send_message(
+            chat_id=CHAT_ID,
+            text="Senha incorreta. O sistema de monitoramento não foi desligado."
+        )
 
 # Manipulador de erros
 async def error_handler(update: object, context: CallbackContext) -> None:
@@ -190,7 +203,8 @@ application.add_handler(CommandHandler("naolimpar", dont_clear_files))
 application.add_error_handler(error_handler)  # Registra o manipulador de erros
 
 # Agendamento para limpeza
-application.job_queue.run_repeating(cleanup_files, interval=15*24*60*60, first=0)
+application.job_queue.run_repeating(cleanup_files, interval=60, first=0)
+#application.job_queue.run_repeating(cleanup_files, interval=15*24*60*60, first=0)
 
 # Função principal
 if __name__ == '__main__':
