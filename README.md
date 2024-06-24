@@ -6,12 +6,12 @@ O projeto foi desenvolvido com a finalidade de  monitoramento e remoção de arq
 
 Durante o projeto, são abordados os seguintes tópicos:
 
-Criação de um ChatBot.
-Criação de uma função de alerta e monitoramento de entradas no servidor.
-Criação de uma função de bloqueio de usuário e host não autorizados no servidor.
-Integração da API-Telegram chatbot como o usuário administrador.
-Criação de uma função de aviso temporal para o administrador.
-Criação de uma função para elimitar containers e imagens que esteja armazenados em um servidor através de um comando pelo chatbot.
+Criação de um ChatBot.<br>
+Criação de uma função de alerta e monitoramento de entradas no servidor.<br>
+Criação de uma função de bloqueio de usuário e host não autorizados no servidor.<br>
+Integração da API-Telegram chatbot como o usuário administrador.<br>
+Criação de uma função de aviso temporal para o administrador.<br>
+Criação de uma função para elimitar containers e imagens que esteja armazenados em um servidor através de um comando pelo chatbot.<br>
 
 Bibliotecas necessárias para utilizar o Chatbot.
 
