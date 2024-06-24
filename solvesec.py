@@ -7,9 +7,9 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, CallbackContext
 
 # Configurações iniciais
-TOKEN = 'token-do-chatbot-criado'
-CHAT_ID = 'id-do-chat-telegram-do-bot'
-PASSWORD = 'adicionar-uma-senha'
+TOKEN = 'Adicionar-seu-token'
+CHAT_ID = 'Adicionar-seu-chat-id'
+PASSWORD = 'Adicionar-senha'
 
 # Arquivos
 LOGON_FILE = "logon.json"
@@ -202,9 +202,8 @@ application.add_handler(CommandHandler("limpar", clear_files))
 application.add_handler(CommandHandler("naolimpar", dont_clear_files))
 application.add_error_handler(error_handler)  # Registra o manipulador de erros
 
-# Agendamento para limpeza
-application.job_queue.run_repeating(cleanup_files, interval=60, first=0)
-#application.job_queue.run_repeating(cleanup_files, interval=15*24*60*60, first=0)
+# Agendamento para limpeza - (Setado para 15 dias)
+application.job_queue.run_repeating(cleanup_files, interval=15*24*60*60, first=0)
 
 # Função principal
 if __name__ == '__main__':
