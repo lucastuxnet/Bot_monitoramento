@@ -15,12 +15,8 @@ Criação de uma função para elimitar containers e imagens que esteja armazena
 
 Bibliotecas necessárias para utilizar o Chatbot.
 
-- Logging
-- Subprocess
 - Ushlex
 - JobQueue
-- Json (Nativa)
-- OS (Nativa)
 
 Instalação e execução do código.
 
@@ -32,12 +28,6 @@ pip install python-telegram-bot --upgrade
 
 - Ushlex:
 pip install ushlex
-
-- Logging:
-pip install logging
-
-- Subprocess:
-pip install subprocess.run
 
 - Job Queue:
 pip install "python-telegram-bot[job-queue]"
