@@ -7,9 +7,9 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, CallbackContext
 
 # Configurações iniciais
-TOKEN = 'Adicionar-seu-token'
-CHAT_ID = 'Adicionar-seu-chat-id'
-PASSWORD = 'Adicionar-senha'
+TOKEN = '6887776375:AAErUcMck8kkF8BpwtMMYAEOv1tE4NKhsts'
+CHAT_ID = '-4124508791'
+PASSWORD = 'BOTESADX'
 
 # Arquivos
 LOGON_FILE = "logon.json"
