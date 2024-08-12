@@ -3,6 +3,7 @@ import json
 import shlex
 import subprocess
 import logging
+import asyncio
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, CallbackContext
 
