@@ -45,7 +45,7 @@ async def monitor_users(context: CallbackContext) -> None:
             detected_users[user['usuario']] = user
             await context.bot.send_message(
                 chat_id=CHAT_ID,
-                text=f"Usuário detectado: {user['usuario']} com IP {user['login@']}\nDeseja bloquear? /bloquear {user['usuario']} ou /naobloquear {user['usuario']}"
+                text=f"Usuário detectado: {user['usuario']} com IP {user['tty']}\nDeseja bloquear? /bloquear {user['usuario']} ou /naobloquear {user['usuario']}"
             )
 
 # Bloquear usuário
@@ -57,7 +57,7 @@ async def block_user(update: Update, context: CallbackContext) -> None:
         return
     
     if usuario in detected_users:
-        ip = detected_users[usuario]['login@']
+        ip = detected_users[usuario]['tty']
         # Adiciona regra ao iptables
         subprocess.run(shlex.split(f"sudo iptables -A INPUT -s {ip} -j DROP"))
         # Mata todos os processos do usuário
@@ -207,5 +207,5 @@ application.job_queue.run_repeating(cleanup_files, interval=15*24*60*60, first=0
 
 # Função principal
 if __name__ == '__main__':
-    application.job_queue.run_repeating(monitor_users, interval=60, first=0)
+    application.job_queue.run_repeating(monitor_users, interval=300, first=0)
     application.run_polling()
