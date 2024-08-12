@@ -3,7 +3,6 @@ import json
 import shlex
 import subprocess
 import logging
-import asyncio
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, CallbackContext
 
@@ -206,15 +205,6 @@ application.add_error_handler(error_handler)  # Registra o manipulador de erros
 # Agendamento para limpeza - (Setado para 15 dias)
 application.job_queue.run_repeating(cleanup_files, interval=15*24*60*60, first=0)
 
-# Comando para iniciar o bot ao iniciar o script no servidor.
-async def main():
-    application = ApplicationBuilder().token(TOKEN).build()
-
-    application.add_handler(CommandHandler('start', start_monitoring))
-
-    await application.start()
-    await application.idle()
-    
 # Função principal
 if __name__ == '__main__':
-    asyncio.run(main())
+    application.run_polling()
