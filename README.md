@@ -35,7 +35,8 @@ pip install "python-telegram-bot[job-queue]"
 
 
 Para executar o projeto no terminal, digite o seguinte comando:
-
+chmod +x bot.sh
+./bot.sh
 python3 solvesec.py
 
 
