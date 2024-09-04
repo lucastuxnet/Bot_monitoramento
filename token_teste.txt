@@ -1,0 +1,4 @@
+#### tokens/id para testes.
+TOKEN = '7332448457:AAGGnFvU2kAkxMjkoCm5WnJX6Nnk3aow4rA'
+CHAT_ID = '1285797036'
+PASSWORD = 'teste123'
