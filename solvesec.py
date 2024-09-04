@@ -9,11 +9,11 @@ from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, Callb
 # Configurações iniciais
 TOKEN = 'seu-token'
 CHAT_ID = 'seu-id'
-PASSWORD = 'algum-password'
+PASSWORD = 'sua-senha'
 
 # Arquivos
-LOGON_FILE = "logon.json"
-BLACKLIST_FILE = "blacklist.json"
+LOGON_FILE = "/home/usuario/pasta/do/bot/logon.json"
+BLACKLIST_FILE = "/home/usuario/pasta/do/bot//blacklist.json"
 
 # Configuração de logging
 logging.basicConfig(
@@ -34,8 +34,6 @@ async def monitor_users(context: CallbackContext) -> None:
             users.append({
                 "usuario": user_info[0],
                 "tty": user_info[1],
-                "login@": user_info[2],
-                "OCIOSO": user_info[3]
             })
     with open(LOGON_FILE, 'w') as f:
         json.dump(users, f, indent=4)
@@ -45,7 +43,7 @@ async def monitor_users(context: CallbackContext) -> None:
             detected_users[user['usuario']] = user
             await context.bot.send_message(
                 chat_id=CHAT_ID,
-                text=f"Usuário detectado: {user['usuario']} com IP {user['login@']}\nDeseja bloquear? /bloquear {user['usuario']} ou /naobloquear {user['usuario']}"
+                text=f"Usuário detectado: {user['usuario']} com IP {user['tty']}\nDeseja bloquear? /bloquear {user['usuario']}"
             )
 
 # Bloquear usuário
@@ -57,7 +55,7 @@ async def block_user(update: Update, context: CallbackContext) -> None:
         return
     
     if usuario in detected_users:
-        ip = detected_users[usuario]['login@']
+        ip = detected_users[usuario]['tty']
         # Adiciona regra ao iptables
         subprocess.run(shlex.split(f"sudo iptables -A INPUT -s {ip} -j DROP"))
         # Mata todos os processos do usuário
@@ -71,23 +69,6 @@ async def block_user(update: Update, context: CallbackContext) -> None:
         )
     else:
         await update.message.reply_text(f"Usuário {usuario} não encontrado ou já bloqueado.")
-
-# Não bloquear usuário
-async def dont_block_user(update: Update, context: CallbackContext) -> None:
-    try:
-        usuario = context.args[0]
-    except IndexError:
-        await update.message.reply_text("Por favor, forneça o nome do usuário. Ex: /naobloquear <usuario>")
-        return
-
-    if usuario in detected_users:
-        del detected_users[usuario]
-        await context.bot.send_message(
-            chat_id=CHAT_ID,
-            text=f"Não foi detectado nenhum login inseguro para {usuario}."
-        )
-    else:
-        await update.message.reply_text(f"Usuário {usuario} não encontrado ou já tratado.")
 
 # Desbloquear IP
 async def unblock_ip(update: Update, context: CallbackContext) -> None:
@@ -134,8 +115,8 @@ async def clear_files(update: Update, context: CallbackContext) -> None:
         return
 
     if senha == PASSWORD:
-#        subprocess.run("docker stop $(docker ps -a -q) & docker rm -f $(docker ps -a -q) && docker rmi -f $(docker images -a -q) && echo 'Processo finalizado'", shell=True)
-        subprocess.run("podman stop $(podman ps -a -q) & podman rm -f $(podman ps -a -q) && podman rmi -f $(podman images -a -q) && echo 'Processo finalizado'", shell=True)
+        subprocess.run("docker stop $(docker ps -a -q) & docker rm -f $(docker ps -a -q) && docker rmi -f $(docker images -a -q) && echo 'Processo finalizado'", shell=True)
+#        subprocess.run("podman stop $(podman ps -a -q) & podman rm -f $(podman ps -a -q) && podman rmi -f $(podman images -a -q) && echo 'Processo finalizado'", shell=True)
         await context.bot.send_message(
             chat_id=CHAT_ID,
             text="Processo finalizado todos os containers e imagens foram removidos do sistema."
@@ -155,7 +136,6 @@ async def dont_clear_files(update: Update, context: CallbackContext) -> None:
 
 # Comando para iniciar monitoramento
 async def start_monitoring(update: Update, context: CallbackContext) -> None:
-    context.job_queue.run_repeating(monitor_users, interval=60, first=0)
     await context.bot.send_message(
         chat_id=CHAT_ID,
         text="Sistema de monitoramento iniciado. \n \n Comandos para uso administrativo: \n \n 1. Para verificar IP's adicionados na Blacklist digite /Blacklist \n \n 2. Para desbloquear algum IP digite /desbloquear IP \n \n 3. Para remover todos os arquivos do servidor /limpar senha \n \n 4. Para bloquear algum usuário /bloquear usuário"
@@ -195,8 +175,7 @@ application = ApplicationBuilder().token(TOKEN).build()
 application.add_handler(CommandHandler("on", start_monitoring))
 application.add_handler(CommandHandler("off", stop_monitoring))
 application.add_handler(CommandHandler("bloquear", block_user))
-application.add_handler(CommandHandler("naobloquear", dont_block_user))
-application.add_handler(CommandHandler("Blacklist", show_blacklist))
+application.add_handler(CommandHandler("blacklist", show_blacklist))
 application.add_handler(CommandHandler("desbloquear", unblock_ip))
 application.add_handler(CommandHandler("limpar", clear_files))
 application.add_handler(CommandHandler("naolimpar", dont_clear_files))
@@ -207,4 +186,5 @@ application.job_queue.run_repeating(cleanup_files, interval=15*24*60*60, first=0
 
 # Função principal
 if __name__ == '__main__':
+    application.job_queue.run_repeating(monitor_users, interval=60, first=0)
     application.run_polling()
